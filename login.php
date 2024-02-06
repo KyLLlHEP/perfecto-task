@@ -1,3 +1,11 @@
+<?php
+
+require_once 'connperfecto.php';
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,9 +14,7 @@
     <link href="reset.css" rel="stylesheet" />
     <link href="styles.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--[if lt IE 9]>
-      <script src="/js/html5shiv.js"></script>
-    <![endif]-->
+   
     <style>
       table {
         border-collapse: separate;
