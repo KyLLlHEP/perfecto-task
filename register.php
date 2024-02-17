@@ -1,8 +1,35 @@
-
 <?php
-
 require_once 'connperfecto.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    try {
+        
+        $sql = "INSERT INTO Admin (FirstName, LastName, Username, Password) VALUES (:firstName, :lastName, :email, :password)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+
+        echo "User registered successfully!";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
 ?>
+
+
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -13,9 +40,7 @@ require_once 'connperfecto.php';
     <link href="reset.css" rel="stylesheet" />
     <link href="styles.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--[if lt IE 9]>
-      <script src="/js/html5shiv.js"></script>
-    <![endif]-->
+   
     <style>
       table {
         border-collapse: separate;
@@ -70,32 +95,17 @@ require_once 'connperfecto.php';
         <h4>Register your details</h4>
 
         <div class="registerForm">
-          <form class="registerForm">
+          <form class="registerForm" action="register.php" method="post">
+       
             <input
-              type="text"
-              placeholder="First Name"
-              required
-              class="formField"
-            />
+              type = "text" placeholder = "First Name" required class= "formField" name= "firstName" />
             <input
-              type="text"
-              placeholder="Last Name"
-              required
-              class="formField"
-            />
+              type = "text" placeholder = "Last Name" required class = "formField" name = "lastName" />
             <input
-              type="email"
-              placeholder="Email Address"
-              required
-              class="formField"
-            />
+              type = "email" placeholder = "Email Address" required class = "formField" name = "email" />
             <input
-              type="password"
-              placeholder="Password"
-              required
-              class="formField"
-            />
-            <input type="submit" value="Register Now" class="formSubmit" />
+            type = "password" placeholder = "Password" required class = "formField" name="password" />  
+            <input type = "submit" value = "Register Now" class= "formSubmit" />
           </form>
         </div>
       </section>
