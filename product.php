@@ -1,15 +1,11 @@
 <?php
 
 require_once 'connperfecto.php';
-
 $sql = "SELECT ProductReference, ProductName, Description, Category, Price, ProductImagePath, SupplierID FROM Product";
-
 // Querry and use result
 $stmt = $pdo->query($sql);
 
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,15 +71,13 @@ $stmt = $pdo->query($sql);
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo '<tr>';
                 echo '<td>' . $row['ProductReference'] . '</td>';
-                echo '<td>' . $row['ProductName'] . '</td>';
+                echo '<td><a href="product_details.php?product_id=' . $row['ProductReference'] . '">' . $row['ProductName'] . '</a></td>';
                 echo '<td>' . $row['Description'] . '</td>';
                 echo '<td>' . $row['Category'] . '</td>';
                 echo '<td>' . $row['Price'] . '</td>';
                 echo '<td><img src="' . $row['ProductImagePath'] . '" alt="Product Image"></td>';
                 echo '<td>' . $row['SupplierID'] . '</td>';
                 echo '</tr>';
-                
-
             }
             ?>
         </table>

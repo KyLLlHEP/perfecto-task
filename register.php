@@ -1,21 +1,32 @@
 <?php
 require_once 'connperfecto.php';
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+  
+
+    $hash = password_hash($password , PASSWORD_DEFAULT);
+
+ 
+
     try {
         
-        $sql = "INSERT INTO Admin (FirstName, LastName, Username, Password) VALUES (:firstName, :lastName, :email, :password)";
+        $sql = "INSERT INTO Admin (FirstName, LastName, Username, Password) 
+        VALUES (:firstName, :lastName, :email, :password)";
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':password', $hash);
         $stmt->execute();
 
         echo "User registered successfully!";
